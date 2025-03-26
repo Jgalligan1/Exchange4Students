@@ -1,12 +1,97 @@
+
+[
+ {
+   "type": "Book",
+   "title": "Algorithms Introduction",
+   "description": "A comprehensive textbook on algorithms.",
+   "edition": "30th",
+   "courseNumber": "CS251234",
+   "price": 75,
+   "id": "item1",
+   "userId": "user1"
+ }
+]
+
+
 [
   {
     "type": "Book",
-    "title": "Algorithms Introduction",
-    "description": "A comprehensive textbook on algorithms.",
-    "edition": "30th",
-    "courseNumber": "CS251234",
-    "price": 75,
-    "id": "item1",
-    "userId": "user1"
+    "title": "Data Structures Unleashed",
+    "description": "An in-depth look at data structures and their applications.",
+    "edition": "5th",
+    "courseNumber": "CS211345",
+    "price": 60,
+    "id": "item2",
+    "userId": "user2"
+  },
+  {
+    "type": "Book",
+    "title": "Machine Learning Basics",
+    "description": "An introductory book on machine learning concepts and techniques.",
+    "edition": "2nd",
+    "courseNumber": "AI101678",
+    "price": 85,
+    "id": "item3",
+    "userId": "user3"
+  },
+  {
+    "type": "Book",
+    "title": "Computer Networks Explained",
+    "description": "A comprehensive guide to computer networks and protocols.",
+    "edition": "8th",
+    "courseNumber": "CS452345",
+    "price": 90,
+    "id": "item4",
+    "userId": "user4"
+  },
+  {
+    "type": "Book",
+    "title": "Operating Systems Concepts",
+    "description": "A fundamental book on operating systems and their functionalities.",
+    "edition": "10th",
+    "courseNumber": "CS331234",
+    "price": 110,
+    "id": "item5",
+    "userId": "user5"
+  },
+  {
+    "type": "Book",
+    "title": "Cybersecurity Fundamentals",
+    "description": "An essential guide to cybersecurity principles and best practices.",
+    "edition": "3rd",
+    "courseNumber": "SEC202345",
+    "price": 70,
+    "id": "item6",
+    "userId": "user6"
+  },
+  {
+    "type": "Book",
+    "title": "Software Engineering Principles",
+    "description": "A practical book covering software development methodologies.",
+    "edition": "7th",
+    "courseNumber": "CS401789",
+    "price": 95,
+    "id": "item7",
+    "userId": "user7"
+  },
+  {
+    "type": "Book",
+    "title": "Database Management Systems",
+    "description": "A detailed book on database design, SQL, and optimization.",
+    "edition": "6th",
+    "courseNumber": "CS361234",
+    "price": 80,
+    "id": "item8",
+    "userId": "user8"
+  },
+  {
+    "type": "Book",
+    "title": "Artificial Intelligence: A Modern Approach",
+    "description": "A classic textbook covering AI principles and applications.",
+    "edition": "4th",
+    "courseNumber": "AI502567",
+    "price": 120,
+    "id": "item9",
+    "userId": "user9"
   }
 ]
