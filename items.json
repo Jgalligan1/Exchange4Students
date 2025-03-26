@@ -1,0 +1,12 @@
+[
+  {
+    "type": "Book",
+    "title": "Algorithms Introduction",
+    "description": "A comprehensive textbook on algorithms.",
+    "edition": "30th",
+    "courseNumber": "CS251234",
+    "price": 75,
+    "id": "item1",
+    "userId": "user1"
+  }
+]
