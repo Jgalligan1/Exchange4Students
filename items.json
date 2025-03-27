@@ -1,82 +1,69 @@
 [
   {
+    "id": "item1",
+    "userId": "user123",
     "type": "Book",
-    "title": "Data Structures Unleashed",
-    "description": "An in-depth look at data structures and their applications.",
-    "edition": "5th",
-    "courseNumber": "CS211345",
-    "price": 60,
-    "id": "item2",
-    "userId": "user2"
-  },
-  {
-    "type": "Book",
-    "title": "Machine Learning Basics",
-    "description": "An introductory book on machine learning concepts and techniques.",
-    "edition": "2nd",
-    "courseNumber": "AI101678",
-    "price": 85,
-    "id": "item3",
-    "userId": "user3"
-  },
-  {
-    "type": "Book",
-    "title": "Computer Networks Explained",
-    "description": "A comprehensive guide to computer networks and protocols.",
-    "edition": "8th",
-    "courseNumber": "CS452345",
-    "price": 90,
-    "id": "item4",
-    "userId": "user4"
-  },
-  {
-    "type": "Book",
-    "title": "Operating Systems Concepts",
-    "description": "A fundamental book on operating systems and their functionalities.",
-    "edition": "10th",
-    "courseNumber": "CS331234",
-    "price": 110,
-    "id": "item5",
-    "userId": "user5"
-  },
-  {
-    "type": "Book",
-    "title": "Cybersecurity Fundamentals",
-    "description": "An essential guide to cybersecurity principles and best practices.",
+    "title": "Introduction to Algorithms",
+    "description": "A comprehensive textbook on algorithms.",
     "edition": "3rd",
-    "courseNumber": "SEC202345",
-    "price": 70,
-    "id": "item6",
-    "userId": "user6"
+    "courseNumber": "CS101",
+    "price": 50
   },
   {
-    "type": "Book",
-    "title": "Software Engineering Principles",
-    "description": "A practical book covering software development methodologies.",
-    "edition": "7th",
-    "courseNumber": "CS401789",
-    "price": 95,
-    "id": "item7",
-    "userId": "user7"
+    "id": "item2",
+    "userId": "user456",
+    "type": "Clothing",
+    "description": "Red hoodie with school logo.",
+    "color": "Red",
+    "size": "M",
+    "price": 25
   },
   {
-    "type": "Book",
-    "title": "Database Management Systems",
-    "description": "A detailed book on database design, SQL, and optimization.",
-    "edition": "6th",
-    "courseNumber": "CS361234",
-    "price": 80,
-    "id": "item8",
-    "userId": "user8"
+    "id": "item3",
+    "userId": "user789",
+    "type": "Furniture",
+    "description": "Wooden study desk.",
+    "color": "Brown",
+    "dimension": "48x24x30 inches",
+    "weight": 40,
+    "price": 80
   },
   {
-    "type": "Book",
-    "title": "Artificial Intelligence: A Modern Approach",
-    "description": "A classic textbook covering AI principles and applications.",
-    "edition": "4th",
-    "courseNumber": "AI502567",
-    "price": 120,
-    "id": "item9",
-    "userId": "user9"
+    "id": "item4",
+    "userId": "user123",
+    "type": "Electronics",
+    "description": "Dell Laptop with Intel i7 processor.",
+    "model": "Dell XPS 15",
+    "dimension": "14x9x0.7 inches",
+    "weight": 4.5,
+    "price": 1200
+  },
+  {
+    "id": "item5",
+    "userId": "user456",
+    "type": "Sports Gear",
+    "description": "Basketball with good grip.",
+    "weight": 1.3,
+    "price": 30
+  },
+  {
+    "id": "cart1",
+    "userId": "user123",
+    "type": "Shopping Cart",
+    "items": [
+      { "id": "item1", "title": "Introduction to Algorithms", "price": 50 },
+      { "id": "item2", "type": "Clothing", "price": 25 }
+    ],
+    "totalAmount": 75
+  },
+  {
+    "id": "order1",
+    "userId": "user123",
+    "type": "Order/Confirmation",
+    "items": [
+      { "id": "item1", "title": "Introduction to Algorithms", "price": 50 },
+      { "id": "item2", "type": "Clothing", "price": 25 }
+    ],
+    "totalAmount": 75
   }
 ]
