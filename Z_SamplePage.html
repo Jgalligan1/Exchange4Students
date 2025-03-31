@@ -41,6 +41,12 @@
         <label>Dimension:</label>
         <input type="text" id="dimension"><br>
 
+        <label>Edition:</label>
+        <input type="text" id="edition"><br>
+
+        <label>Model:</label>
+        <input type="text" id="model"><br>
+
         <button type="submit">Submit</button>
     </form>
 
@@ -60,7 +66,9 @@
                 size: document.getElementById("size").value || null,
                 user_id: document.getElementById("user_id").value || null,
                 weight: document.getElementById("weight").value || null,
-                dimension: document.getElementById("dimension").value || null
+                dimension: document.getElementById("dimension").value || null,
+                edition: document.getElementById("edition").value || null,
+                model: document.getElementById("model").value || null
             };
 
             fetch("http://localhost:3000/add-item", {
