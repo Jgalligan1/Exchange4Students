@@ -1,0 +1,26 @@
+{
+  "name": "exchange4students",
+  "version": "1.0.0",
+  "description": "",
+  "main": "SearchBrowser.js",
+  "scripts": {
+    "test": "echo \"Error: no test specified\" && exit 1"
+  },
+  "repository": {
+    "type": "git",
+    "url": "git+https://github.com/Jgalligan1/Exchange4Students.git"
+  },
+  "keywords": [],
+  "author": "",
+  "license": "ISC",
+  "bugs": {
+    "url": "https://github.com/Jgalligan1/Exchange4Students/issues"
+  },
+  "homepage": "https://github.com/Jgalligan1/Exchange4Students#readme",
+  "dependencies": {
+    "body-parser": "^2.2.0",
+    "cors": "^2.8.5",
+    "express": "^4.21.2",
+    "mysql2": "^3.14.0"
+  }
+}

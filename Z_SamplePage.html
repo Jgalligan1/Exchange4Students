@@ -1,0 +1,97 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Item Form</title>
+</head>
+<body>
+    <h2>Add a New Item</h2>
+    <form id="itemForm">
+        <label>Type:</label>
+        <select id="type">
+            <option value="Clothing">Clothing</option>
+            <option value="Books">Books</option>
+            <option value="Furniture">Furniture</option>
+            <option value="Electronics">Electronics</option>
+            <option value="Sports Gear">Sports Gear</option>
+        </select><br>
+
+        <label>Name:</label>
+        <input type="text" id="name" required><br>
+
+        <label>Price:</label>
+        <input type="number" id="price" step="0.01" required><br>
+
+        <label>Description:</label>
+        <textarea id="description"></textarea><br>
+
+        <label>Color:</label>
+        <input type="text" id="color"><br>
+
+        <label>Size:</label>
+        <input type="text" id="size"><br>
+
+        <label>User ID:</label>
+        <input type="number" id="user_id"><br>
+
+        <label>Weight (kg):</label>
+        <input type="number" id="weight" step="0.1"><br>
+
+        <label>Dimension:</label>
+        <input type="text" id="dimension"><br>
+
+        <button type="submit">Submit</button>
+    </form>
+
+    <h2>Item List</h2>
+    <ul id="itemList"></ul>
+
+    <script>
+        document.getElementById("itemForm").addEventListener("submit", function(event) {
+            event.preventDefault();
+
+            const itemData = {
+                type: document.getElementById("type").value,
+                name: document.getElementById("name").value,
+                price: document.getElementById("price").value,
+                description: document.getElementById("description").value,
+                color: document.getElementById("color").value || null,
+                size: document.getElementById("size").value || null,
+                user_id: document.getElementById("user_id").value || null,
+                weight: document.getElementById("weight").value || null,
+                dimension: document.getElementById("dimension").value || null
+            };
+
+            fetch("http://localhost:3000/add-item", {
+                method: "POST",
+                headers: { "Content-Type": "application/json" },
+                body: JSON.stringify(itemData)
+            })
+            .then(response => response.json())
+            .then(data => {
+                alert("Item added successfully!");
+                loadItems();
+            })
+            .catch(error => console.error("Error:", error));
+        });
+
+        function loadItems() {
+            fetch("http://localhost:3000/items")
+            .then(response => response.json())
+            .then(items => {
+                const itemList = document.getElementById("itemList");
+                itemList.innerHTML = "";
+                items.forEach(item => {
+                    const li = document.createElement("li");
+                    li.textContent = `${item.name} - $${item.price}`;
+                    itemList.appendChild(li);
+                });
+            })
+            .catch(error => console.error("Error:", error));
+        }
+
+        loadItems();
+    </script>
+</body>
+</html>
