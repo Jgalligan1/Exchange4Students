@@ -10,7 +10,7 @@ app.use(express.json()); // Middleware to parse JSON data
 const db = mysql.createConnection({
     host: "localhost",
     user: "root",
-    password: "Voyager@Beyond", // Th
+    password: "Voyager@Beyond", 
     database: "project1"
 });
 

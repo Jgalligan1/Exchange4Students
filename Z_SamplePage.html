@@ -4,49 +4,100 @@
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <title>Item Form</title>
+    <style>
+        .modal {
+            display: none;
+            position: fixed;
+            z-index: 1;
+            left: 0;
+            top: 0;
+            width: 100%;
+            height: 100%;
+            background-color: rgba(0, 0, 0, 0.5);
+        }
+        .modal-content {
+            background-color: white;
+            margin: 10% auto;
+            padding: 20px;
+            border-radius: 10px;
+            width: 50%;
+        }
+        .close {
+            float: right;
+            font-size: 28px;
+            cursor: pointer;
+        }
+        .form-group {
+            display: none;
+            margin-bottom: 10px;
+        }
+    </style>
+    <script>
+        function openModal() {
+            document.getElementById("itemModal").style.display = "block";
+            updateFormFields();
+        }
+        function closeModal() {
+            document.getElementById("itemModal").style.display = "none";
+        }
+        function updateFormFields() {
+            const type = document.getElementById("type").value;
+            const fieldSets = {
+                "Books": ["name", "description", "edition", "course_number", "price"],
+                "Clothing": ["name", "description", "color", "size", "price"],
+                "Furniture": ["name", "description", "color", "dimension", "weight", "price"],
+                "Electronics": ["name", "description", "model", "dimension", "weight", "price"],
+                "Sports Gear": ["name", "description", "weight", "price"]
+            };
+            
+            document.querySelectorAll(".form-group").forEach(group => {
+                group.style.display = "none";
+            });
+            
+            fieldSets[type].forEach(field => {
+                document.getElementById(field).closest(".form-group").style.display = "block";
+            });
+        }
+    </script>
 </head>
 <body>
     <h2>Add a New Item</h2>
-    <form id="itemForm">
-        <label>Type:</label>
-        <select id="type">
-            <option value="Clothing">Clothing</option>
-            <option value="Books">Books</option>
-            <option value="Furniture">Furniture</option>
-            <option value="Electronics">Electronics</option>
-            <option value="Sports Gear">Sports Gear</option>
-        </select><br>
+    <button onclick="openModal()">Open Form</button>
 
-        <label>Name:</label>
-        <input type="text" id="name" required><br>
-
-        <label>Price:</label>
-        <input type="number" id="price" step="0.01" required><br>
-
-        <label>Description:</label>
-        <textarea id="description"></textarea><br>
-
-        <label>Color:</label>
-        <input type="text" id="color"><br>
-
-        <label>Size:</label>
-        <input type="text" id="size"><br>
-
-        <label>User ID:</label>
-        <input type="number" id="user_id"><br>
-
-        <label>Weight (kg):</label>
-        <input type="number" id="weight" step="0.1"><br>
-
-        <label>Dimension:</label>
-        <input type="text" id="dimension"><br>
-
-        <button type="submit">Submit</button>
-    </form>
+    <div id="itemModal" class="modal">
+        <div class="modal-content">
+            <span class="close" onclick="closeModal()">&times;</span>
+            <h2>Add a New Item</h2>
+            <form id="itemForm">
+                <label for="type">Type:</label>
+                <select id="type" onchange="updateFormFields()">
+                    <option value="Books">Books</option>
+                    <option value="Clothing">Clothing</option>
+                    <option value="Furniture">Furniture</option>
+                    <option value="Electronics">Electronics</option>
+                    <option value="Sports Gear">Sports Gear</option>
+                </select><br>
+    
+                <div class="form-group"><label for="name">Name:</label><input type="text" id="name" required></div>
+                <div class="form-group"><label for="description">Description:</label><textarea id="description"></textarea></div>
+                <div class="form-group"><label for="edition">Edition:</label><input type="text" id="edition"></div>
+                <div class="form-group"><label for="course_number">Course Number:</label><input type="text" id="course_number"></div>
+                <div class="form-group"><label for="color">Color:</label><input type="text" id="color"></div>
+                <div class="form-group"><label for="size">Size:</label><input type="text" id="size"></div>
+                <div class="form-group"><label for="model">Model:</label><input type="text" id="model"></div>
+                <div class="form-group"><label for="dimension">Dimension:</label><input type="text" id="dimension"></div>
+                <div class="form-group"><label for="weight">Weight (kg):</label><input type="number" id="weight" step="0.1"></div>
+                <div class="form-group"><label for="price">Price:</label><input type="number" id="price" step="0.01" required></div>
+    
+                <button type="submit">Submit</button>
+            </form>
+        </div>
+    </div>
 
     <h2>Item List</h2>
     <ul id="itemList"></ul>
-
+</body>
+</html>
     <script>
         document.getElementById("itemForm").addEventListener("submit", function(event) {
             event.preventDefault();
@@ -56,11 +107,13 @@
                 name: document.getElementById("name").value,
                 price: document.getElementById("price").value,
                 description: document.getElementById("description").value,
+                edition: document.getElementById("edition").value || null,
+                course_number: document.getElementById("course_number").value || null,
                 color: document.getElementById("color").value || null,
                 size: document.getElementById("size").value || null,
-                user_id: document.getElementById("user_id").value || null,
-                weight: document.getElementById("weight").value || null,
-                dimension: document.getElementById("dimension").value || null
+                model: document.getElementById("model").value || null,
+                dimension: document.getElementById("dimension").value || null,
+                weight: document.getElementById("weight").value || null
             };
 
             fetch("http://localhost:3000/add-item", {
@@ -91,6 +144,7 @@
             .catch(error => console.error("Error:", error));
         }
 
+        updateFormFields();
         loadItems();
     </script>
 </body>

@@ -1,5 +1,8 @@
-CREATE DATABASE project1;
+-- CREATE DATABASE project1;
 USE project1;
+-- This code gives a clean reset to the table
+
+DROP TABLE items;
 CREATE TABLE items (
     id INT AUTO_INCREMENT PRIMARY KEY,
     type ENUM('Clothing', 'Books', 'Furniture', 'Electronics', 'Sports Gear') NOT NULL,
@@ -11,5 +14,7 @@ CREATE TABLE items (
     user_id INT NULL,
     weight DECIMAL(10,2) NULL,
     dimension VARCHAR(100) NULL,
+    edition VARCHAR(100) NULL,
+    model VARCHAR(100) NULL,
     created_at TIMESTAMP DEFAULT CURRENT_TIMESTAMP
 );
