@@ -1,0 +1,27 @@
+body {
+  font-family: Arial, sans-serif;
+  text-align: center;
+  padding: 50px;
+  background-color: #f4f4f4;
+}
+h1 {
+  margin-bottom: 40px;
+}
+.button-container {
+  display: flex;
+  justify-content: center;
+  gap: 20px;
+}
+.dashboard-button {
+  padding: 15px 30px;
+  font-size: 16px;
+  cursor: pointer;
+  border: none;
+  background-color: #4CAF50;
+  color: white;
+  border-radius: 8px;
+  transition: background-color 0.3s ease;
+}
+.dashboard-button:hover {
+  background-color: #45a049;
+}
