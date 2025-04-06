@@ -63,14 +63,23 @@ function displayItems() {
 
 function searchItems() {
   const query = document.getElementById("searchInput").value.toLowerCase();
-  filteredItems = allItems.filter((item) =>
-    Object.values(item).some((value) =>
-      value.toString().toLowerCase().includes(query)
-    )
-  );
+  const selectedType = document.getElementById("typeFilter").value;
+
+  filteredItems = allItems.filter((item) => {
+    const matchesQuery = Object.values(item).some((value) => {
+      if (value === null || value === undefined) return false;
+      return value.toString().toLowerCase().includes(query);
+    });
+
+    const matchesType = selectedType === "all" || item.type === selectedType;
+
+    return matchesQuery && matchesType;
+  });
+
   currentPage = 0;
   displayItems();
 }
+
 
 function updatePagination() {
   const totalPages = Math.ceil(filteredItems.length / itemsPerPage) || 1;
