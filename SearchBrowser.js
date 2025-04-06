@@ -3,7 +3,7 @@ let filteredItems = [];
 let currentPage = 0;
 const itemsPerPage = 5;
 
-fetch("items.json")
+fetch("http://localhost:3000/items")
   .then((response) => {
     if (!response.ok) {
       throw new Error(`HTTP error! Status: ${response.status}`);
@@ -20,6 +20,7 @@ fetch("items.json")
     document.getElementById("itemsContainer").innerHTML =
       "<p>Failed to load items.</p>";
   });
+
 
 function displayItems() {
   const container = document.getElementById("itemsContainer");
@@ -39,8 +40,11 @@ function displayItems() {
     const itemDiv = document.createElement("div");
     itemDiv.classList.add("item");
 
-    let details = `<h3>${item.type || item.title} | ${item.description}</h3>`;
+    let details = "";
 
+    if (item.type) details += `<h3>Type: ${item.type}</h3>`;
+    if (item.name) details += `<h4>Name: ${item.name}</h4>`;
+    if (item.description) details += `<p>Description: ${item.description}</p>`;
     if (item.courseNumber) details += `<p>Course: ${item.courseNumber}</p>`;
     if (item.edition) details += `<p>Edition: ${item.edition}</p>`;
     if (item.model) details += `<p>Model: ${item.model}</p>`;
