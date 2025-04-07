@@ -10,7 +10,7 @@ app.use(express.json()); // Middleware to parse JSON data
 const db = mysql.createConnection({
     host: "localhost",
     user: "root",
-    password: "Voyager@Beyond", // Th
+    password: "Voyager@Beyond", 
     database: "project1"
 });
 
@@ -24,15 +24,18 @@ db.connect(err => {
 
 // Route to add an item
 app.post("/add-item", (req, res) => {
-    const { type, name, price, description, color, size, user_id, weight, dimension } = req.body;
-    const sql = "INSERT INTO items (type, name, price, description, color, size, user_id, weight, dimension) VALUES (?, ?, ?, ?, ?, ?, ?, ?, ?)";
-    const values = [type, name, price, description, color, size, user_id, weight, dimension];
-
+    const { type, name, price, description, color, size, user_id, weight, dimension, model, course_number, edition } = req.body;
+    const sql = "INSERT INTO items (type, name, price, description, color, size, user_id, weight, dimension, model, course_number, edition) VALUES (?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?)";
+    const values = [type, name, price, description, color, size, user_id, weight, dimension, model, course_number, edition];
     db.query(sql, values, (err, result) => {
-        if (err) return res.status(500).send(err);
+        if (err) {
+            console.error("Error inserting item:", err); // Optional: log more details
+            return res.status(500).send(err);
+        }
         res.json({ message: "Item added successfully", id: result.insertId });
     });
 });
+
 
 // Route to fetch all items
 app.get("/items", (req, res) => {
