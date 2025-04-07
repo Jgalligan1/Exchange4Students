@@ -44,23 +44,25 @@
         </div>
         <a class="active" href="#" onclick="location.href='MainDashboard.html'">Home</a>
     </div>
-    <h2>Add a New Item</h2>
-    <button onclick="openModal()">Add Item</button>
-
+    <div class="addItemContainer">    
+        <h2 id="addItemTitle">Add a New Item</h2>
+        <button onclick="openModal()" id="addItemBtn">Add Item</button>
+    </div>
     <div id="itemModal" class="modal">
         <div class="modal-content">
             <span class="close" onclick="closeModal()">&times;</span>
             <h2>Add a New Item</h2>
             <form id="itemForm">
-                <label for="type">Type:</label>
-                <select id="type" onchange="updateFormFields()">
-                    <option value="Books">Books</option>
-                    <option value="Clothing">Clothing</option>
-                    <option value="Furniture">Furniture</option>
-                    <option value="Electronics">Electronics</option>
-                    <option value="Sports Gear">Sports Gear</option>
-                </select><br>
-    
+                <div class="item-type">
+                    <label for="type">Item Type:</label>
+                    <select id="type" onchange="updateFormFields()">
+                        <option value="Books">Books</option>
+                        <option value="Clothing">Clothing</option>
+                        <option value="Furniture">Furniture</option>
+                        <option value="Electronics">Electronics</option>
+                        <option value="Sports Gear">Sports Gear</option>
+                    </select><br>
+                </div>
                 <div class="form-group"><label for="name">Name:</label><input type="text" id="name" required></div>
                 <div class="form-group"><label for="description">Description:</label><textarea id="description"></textarea></div>
                 <div class="form-group"><label for="edition">Edition:</label><input type="text" id="edition"></div>
@@ -72,7 +74,7 @@
                 <div class="form-group"><label for="weight">Weight (kg):</label><input type="number" id="weight" step="0.1"></div>
                 <div class="form-group"><label for="price">Price:</label><input type="number" id="price" step="0.01" required></div>
     
-                <button type="submit">Submit</button>
+                <button type="submit" class="submit-button">Submit</button>
             </form>
         </div>
     </div>
