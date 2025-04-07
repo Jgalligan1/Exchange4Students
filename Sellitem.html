@@ -34,6 +34,16 @@
     </script>
 </head>
 <body>
+    <div class="topnav">
+        <div class="profile-container">
+            <img src="./pictures/profile-icon.png" alt="Profile" class="profile-image" onclick="toggleDropdown()">
+            <div class="dropdown-menu" id="dropdownMenu">
+                <p>My Account</p>
+                <p>Sign Out</p>
+            </div>
+        </div>
+        <a class="active" href="#" onclick="location.href='MainDashboard.html'">Home</a>
+    </div>
     <h2>Add a New Item</h2>
     <button onclick="openModal()">Add Item</button>
 
@@ -120,5 +130,6 @@
         updateFormFields();
         loadItems();
     </script>
+    <script src="Sellitem.js"></script>
 </body>
 </html>
