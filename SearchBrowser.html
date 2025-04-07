@@ -8,10 +8,25 @@
 </head>
 <body>
   <div class="topnav">
-    <a class="active" href="#">Home</a>
-    <a href="#">Log Out</a>
+    <div class="profile-container">
+      <img src="./pictures/profile-icon.png" alt="Profile" class="profile-image" onclick="toggleDropdown()">
+      <div class="dropdown-menu" id="dropdownMenu">
+        <p>My Account</p>
+        <p>Sign Out</p>
+      </div>
+    </div>
+    <a class="active" href="#" onclick="location.href='MainDashboard.html'">Home</a>
     <a href="#">Checkout</a>
     <div class="search-container">
+      <select id="typeFilter" onchange="searchItems()">
+        <option value="all">All Types</option>
+        <option value="Books">Books</option>
+        <option value="Clothing">Clothing</option>
+        <option value="Furniture">Furniture</option>
+        <option value="Electronics">Electronics</option>
+        <option value="Sports Gear">Sports Gear</option>
+      </select>
+      
       <input type="text" id="searchInput" placeholder="Search by keyword..." onkeyup="searchItems()" />
     </div>
   </div>

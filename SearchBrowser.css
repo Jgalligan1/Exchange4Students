@@ -57,6 +57,47 @@ body {
   background: #ccc;
 }
 
+.search-container {
+  transform: translate(-70px, 0);
+}
+
+.profile-container {
+  position: absolute;
+  right: 10px;
+}
+
+.profile-image {
+  width: 50px;
+  height: 50px;
+  border-radius: 50%;
+  cursor: pointer;
+}
+
+.dropdown-menu {
+  display: none;
+  position: absolute;
+  top: 60px;
+  right: 0;
+  background-color: white;
+  border: 1px solid #ccc;
+  border-radius: 8px;
+  box-shadow: 0 4px 8px rgba(0, 0, 0, 0.1);
+  padding: 10px 0;
+  min-width: 140px;
+  z-index: 100;
+}
+
+.dropdown-menu p {
+  margin: 0;
+  padding: 10px 16px;
+  cursor: pointer;
+}
+
+.dropdown-menu p:hover {
+  background-color: #f1f1f1;
+}
+
+
 .item {
   border: 1px solid black;
   padding: 10px;

@@ -1,0 +1,28 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8">
+  <meta http-equiv="X-UA-Compatible" content="IE=edge">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>Main Dashboard</title>
+  <link rel="stylesheet" href="MainDashboard.css">
+</head>
+<body>
+  <img id="education-icon" src="./pictures/education-icon.png">
+  <h1 id="dash-title">Exchange4Students</h1>
+
+  <div class="main-button-container">
+    <button class="dashboard-button" onclick="location.href='searchbrowser.html'">Buy</button>
+    <button class="dashboard-button" onclick="location.href='Sellitem.html'">Sell</button>
+  </div>
+  <div class="profile-container">
+    <img src="./pictures/profile-icon.png" alt="Profile" class="profile-image" onclick="toggleDropdown()">
+    <div class="dropdown-menu" id="dropdownMenu">
+      <p>My Account</p>
+      <p>Sign Out</p>
+    </div>
+  </div>
+  
+  <script src="MainDashboard.js"></script>
+</body>
+</html>
