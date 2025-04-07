@@ -45,7 +45,7 @@ function displayItems() {
     if (item.type) details += `<h3>Type: ${item.type}</h3>`;
     if (item.name) details += `<h4>Name: ${item.name}</h4>`;
     if (item.description) details += `<p>Description: ${item.description}</p>`;
-    if (item.courseNumber) details += `<p>Course: ${item.courseNumber}</p>`;
+    if (item.course_number) details += `<p>Course: ${item.course_number}</p>`;
     if (item.edition) details += `<p>Edition: ${item.edition}</p>`;
     if (item.model) details += `<p>Model: ${item.model}</p>`;
     if (item.color) details += `<p>Color: ${item.color}</p>`;
