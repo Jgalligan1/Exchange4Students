@@ -45,6 +45,28 @@ app.get("/items", (req, res) => {
     });
 });
 
+// Route to update an item
+app.put("/items/:id", (req, res) => {
+    const { id } = req.params;
+    const { type, name, price, description, color, size, user_id, weight, dimension, model, course_number, edition } = req.body;
+
+    const sql = `
+        UPDATE items 
+        SET type = ?, name = ?, price = ?, description = ?, color = ?, size = ?, user_id = ?, weight = ?, dimension = ?, model = ?, course_number = ?, edition = ?
+        WHERE id = ?
+    `;
+    const values = [type, name, price, description, color, size, user_id, weight, dimension, model, course_number, edition, id];
+
+    db.query(sql, values, (err, result) => {
+        if (err) {
+            console.error("Error updating item:", err);
+            return res.status(500).send(err);
+        }
+        res.json({ message: "Item updated successfully" });
+    });
+});
+
+
 // Start the server
 app.listen(3000, () => {
     console.log("Server running on port 3000");

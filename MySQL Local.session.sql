@@ -1,5 +1,6 @@
 -- CREATE DATABASE project1;
 USE project1;
+DROP TABLE items;
 CREATE TABLE items (
     id INT AUTO_INCREMENT PRIMARY KEY,
     type ENUM('Clothing', 'Books', 'Furniture', 'Electronics', 'Sports Gear') NOT NULL,

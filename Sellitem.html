@@ -6,10 +6,41 @@
     <title>Item Form</title>
     <link rel="stylesheet" href="Sellitem.css"/>
     <script>
-        function openModal() {
-            document.getElementById("itemModal").style.display = "block";
-            updateFormFields();
+function openModal(item = null) {
+    const modal = document.getElementById("itemModal");
+    modal.style.display = "block";
+
+    // Reset the form first
+    document.getElementById("itemForm").reset();
+
+    // Set default submit button label
+    document.querySelector(".submit-button").textContent = item ? "Update" : "Submit";
+
+    // Set modal title
+    document.querySelector(".modal-content h2").textContent = item ? "Edit Item" : "Add a New Item";
+
+    // Store item ID if editing
+    if (item) {
+        document.getElementById("itemForm").dataset.itemId = item.id;
+    } else {
+        delete document.getElementById("itemForm").dataset.itemId;
+    }
+
+    // Set item type and show the right fields
+    document.getElementById("type").value = item?.type || "Books";
+    updateFormFields(); // Show correct fields based on type
+
+    // Fill in other fields if editing, we will need to add images later
+    const fields = ["name", "description", "edition", "course_number", "color", "size", "model", "dimension", "weight", "price"];
+    fields.forEach(field => {
+        const input = document.getElementById(field);
+        if (input) {
+            input.value = item?.[field] || "";
         }
+    });
+}
+        
+
         function closeModal() {
             document.getElementById("itemModal").style.display = "none";
         }
@@ -85,34 +116,44 @@
 </html>
     <script>
         document.getElementById("itemForm").addEventListener("submit", function(event) {
-            event.preventDefault();
+    event.preventDefault();
 
-            const itemData = {
-                type: document.getElementById("type").value,
-                name: document.getElementById("name").value,
-                price: document.getElementById("price").value,
-                description: document.getElementById("description").value,
-                edition: document.getElementById("edition").value || null,
-                course_number: document.getElementById("course_number").value || null,
-                color: document.getElementById("color").value || null,
-                size: document.getElementById("size").value || null,
-                model: document.getElementById("model").value || null,
-                dimension: document.getElementById("dimension").value || null,
-                weight: document.getElementById("weight").value || null
-            };
+    const itemId = this.dataset.itemId;
 
-            fetch("http://localhost:3000/add-item", {
-                method: "POST",
-                headers: { "Content-Type": "application/json" },
-                body: JSON.stringify(itemData)
-            })
-            .then(response => response.json())
-            .then(data => {
-                alert("Item added successfully!");
-                loadItems();
-            })
-            .catch(error => console.error("Error:", error));
-        });
+    const itemData = {
+        type: document.getElementById("type").value,
+        name: document.getElementById("name").value,
+        price: document.getElementById("price").value,
+        description: document.getElementById("description").value,
+        edition: document.getElementById("edition").value || null,
+        course_number: document.getElementById("course_number").value || null,
+        color: document.getElementById("color").value || null,
+        size: document.getElementById("size").value || null,
+        model: document.getElementById("model").value || null,
+        dimension: document.getElementById("dimension").value || null,
+        weight: document.getElementById("weight").value || null,
+        user_id: 1 // We'll need to change this when we make the login system and actual ID stuff.  Right now we only have user_id = 1
+    };
+
+    const url = itemId 
+        ? `http://localhost:3000/items/${itemId}` 
+        : "http://localhost:3000/add-item";
+
+    const method = itemId ? "PUT" : "POST";
+
+    fetch(url, {
+        method,
+        headers: { "Content-Type": "application/json" },
+        body: JSON.stringify(itemData)
+    })
+    .then(response => response.json())
+    .then(() => {
+        closeModal();
+        loadItems();
+    })
+    .catch(error => console.error("Error:", error));
+});
+
 
         function loadItems() {
             fetch("http://localhost:3000/items")
@@ -123,6 +164,12 @@
                 items.forEach(item => {
                     const li = document.createElement("li");
                     li.textContent = `${item.name} - $${item.price}`;
+                    itemList.appendChild(li);
+                    const edit = document.createElement("button");
+                    edit.textContent = "Edit";
+                    edit.onclick = () => openModal(item);
+
+                    li.appendChild(edit)
                     itemList.appendChild(li);
                 });
             })

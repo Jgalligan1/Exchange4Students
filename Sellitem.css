@@ -147,9 +147,14 @@ body {
 }
 
 #itemList {
-  margin: 20px auto;
-  width: 90%;
-  max-width: 600px;
+  position: absolute;
+  top: 200px; /* adjust as needed */
+  left: 20px; /* push it to the left side */
+  width: 250px; /* set a fixed width if you'd like */
+  background-color: #f9f9f9;
+  border: 1px solid #ccc;
+  padding: 10px;
+  z-index: 1; /* make sure it's *below* the modal */
 }
 
 .item {
