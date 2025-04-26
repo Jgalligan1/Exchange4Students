@@ -73,3 +73,13 @@ CREATE TABLE order_items (
     FOREIGN KEY (order_id) REFERENCES orders(id),
     FOREIGN KEY (item_id) REFERENCES items(id)
 );
+
+-- Do you have a cart for user 1?
+SELECT * FROM carts WHERE user_id = 1;
+
+-- If yes, get the cart_id and check items:
+SELECT items.*
+FROM cart_items
+JOIN carts ON cart_items.cart_id = carts.id
+JOIN items ON cart_items.item_id = items.id
+WHERE carts.user_id = 1;

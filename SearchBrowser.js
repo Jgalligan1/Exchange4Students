@@ -54,6 +54,7 @@ function displayItems() {
     if (item.weight) details += `<p>Weight: ${item.weight} lbs</p>`;
 
     details += `<p><strong>Price:</strong> $${item.price}</p>`;
+    details += `<button onclick="addToCart(${item.id})">Add to Cart</button>`;
     itemDiv.innerHTML = details;
     container.appendChild(itemDiv);
   });
@@ -118,3 +119,26 @@ window.addEventListener("click", function (e) {
     menu.style.display = "none";
   }
 });
+
+function addToCart(itemId) {
+  fetch("http://localhost:3000/cart", {
+    method: "POST",
+    headers: {
+      "Content-Type": "application/json",
+    },
+    body: JSON.stringify({
+      user_id: 1, // replace with dynamic user ID if you have one
+      item_id: itemId,
+    }),
+  })
+    .then((response) => {
+      if (!response.ok) throw new Error("Failed to add to cart");
+      return response.json();
+    })
+    .then((data) => {
+      alert("Item added to cart!");
+    })
+    .catch((error) => {
+      console.error("Add to cart failed:", error);
+    });
+}

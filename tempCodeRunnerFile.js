@@ -66,7 +66,7 @@ app.put("/items/:id", (req, res) => {
     });
 });
 
-app.post("/cart", (req, res) => {
+app.post("/cart/add", (req, res) => {
     const { user_id, item_id } = req.body;
   
     // Step 1: Check if the user already has a cart
