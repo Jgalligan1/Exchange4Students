@@ -24,7 +24,6 @@ input[type=text]:focus, input[type=password]:focus {
   box-shadow: 0 0 5px rgba(0, 0, 0, 0.1);
 }
 
-
 /* Set a style for all buttons */
 button {
   background-color: #a6281f;
@@ -144,9 +143,10 @@ img.avatar {
 <h2>Exchange 4 Students </h2>
 
 <button onclick="document.getElementById('loginID').style.display='block'" style="width:auto;">Login</button>
+<button onclick="document.getElementById('signupID').style.display='block'" style="width:auto;">Sign Up</button>
 
+<!-- LOGIN Modal -->
 <div id="loginID" class="modal">
-  
   <form class="modal-content animate" action="/action_page.php" method="post">
     <div class="imgcontainer">
       <span onclick="document.getElementById('loginID').style.display='none'" class="close" title="Close Modal">&times;</span>
@@ -170,16 +170,66 @@ img.avatar {
       <button type="button" onclick="document.getElementById('loginID').style.display='none'" class="cancelbtn">Cancel</button>
       <span class="password" style="margin-left: auto;"><a href="#">Forgot password?</a></span>
     </div>
-    
+  </form>
+</div>
+
+<!-- SIGNUP Modal -->
+<div id="signupID" class="modal">
+  <form class="modal-content animate" action="/signup" method="post" onsubmit="return validateSignupForm()">
+    <div class="imgcontainer">
+      <span onclick="document.getElementById('signupID').style.display='none'" class="close" title="Close Modal">&times;</span>
+      <img src="AtillaTheDuck.png" alt="Avatar" class="avatar">
+    </div>
+
+    <div class="container">
+      <label for="name"><b>Full Name</b></label>
+      <input type="text" placeholder="Enter Full Name" name="name" required>
+
+      <label for="email"><b>Stevens Email</b></label>
+      <input type="text" placeholder="Enter Stevens Email" name="email" required>
+
+      <label for="password"><b>Password</b></label>
+      <input type="password" placeholder="Enter Password" name="password" required>
+
+      <label for="confirmPassword"><b>Confirm Password</b></label>
+      <input type="password" placeholder="Confirm Password" name="confirmPassword" required>
+
+      <button type="submit">Sign Up</button>
+    </div>
+
+    <div class="container" style="background-color:#f1f1f1">
+      <button type="button" onclick="document.getElementById('signupID').style.display='none'" class="cancelbtn">Cancel</button>
+    </div>
   </form>
 </div>
 
 <script>
-var modal = document.getElementById('loginID');
-// Close Modal if user clicks outside of it
+// Sign up form validation
+function validateSignupForm() {
+  var email = document.forms[1]["email"].value;
+  var password = document.forms[1]["password"].value;
+  var confirmPassword = document.forms[1]["confirmPassword"].value;
+
+  if (!email.endsWith("@stevens.edu")) {
+    alert("You must use a Stevens email address.");
+    return false;
+  }
+  if (password !== confirmPassword) {
+    alert("Passwords do not match.");
+    return false;
+  }
+  return true;
+}
+
+// Close Modal if user clicks outside
+var loginModal = document.getElementById('loginID');
+var signupModal = document.getElementById('signupID');
 window.onclick = function(event) {
-    if (event.target == modal) {
-        modal.style.display = "none";
+    if (event.target == loginModal) {
+        loginModal.style.display = "none";
+    }
+    if (event.target == signupModal) {
+        signupModal.style.display = "none";
     }
 }
 </script>
