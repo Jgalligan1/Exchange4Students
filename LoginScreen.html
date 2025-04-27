@@ -5,6 +5,24 @@
 <style>
 body {font-family: Arial, Helvetica, sans-serif;}
 
+body {
+  font-family: Arial, sans-serif;
+  margin: 0;
+  background-color: #f4f4f4;
+
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  height: 80vh; 
+  flex-direction: column;
+  position: relative;
+  text-align: center;
+}
+
+#title-text {
+  font-size: 50px;
+}
+
 input[type=text], input[type=password] {
   width: 100%;
   padding: 14px 22px;
@@ -28,7 +46,7 @@ input[type=text]:focus, input[type=password]:focus {
 button {
   background-color: #a6281f;
   color: white;
-  padding: 14px 22px; 
+  padding: 20px 50px; 
   margin: 10px 0;
   border: none;
   cursor: pointer;
@@ -109,7 +127,6 @@ img.avatar {
   cursor: pointer;
 }
 
-/* Adds a Zoom Animation which makes hitting the login button feel much more like a proper app rather than a web page. */
 @-webkit-keyframes animatezoom {
   from {transform: scale(0.95); opacity: 0}
   to {transform: scale(1); opacity: 1}
@@ -140,7 +157,7 @@ img.avatar {
 </head>
 <body>
 
-<h2>Exchange 4 Students </h2>
+<h2 id="title-text">Exchange 4 Students </h2>
 
 <button onclick="document.getElementById('loginID').style.display='block'" style="width:auto;">Login</button>
 <button onclick="document.getElementById('signupID').style.display='block'" style="width:auto;">Sign Up</button>
