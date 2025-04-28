@@ -29,7 +29,7 @@ app.post("/add-item", (req, res) => {
     const values = [type, name, price, description, color, size, user_id, weight, dimension, model, course_number, edition];
     db.query(sql, values, (err, result) => {
         if (err) {
-            console.error("Error inserting item:", err); // Optional: log more details
+            console.error("Error inserting item:", err); 
             return res.status(500).send(err);
         }
         res.json({ message: "Item added successfully", id: result.insertId });
@@ -82,7 +82,7 @@ app.post("/cart", (req, res) => {
         const cart_id = results[0].id;
         addToCartItems(cart_id, item_id, res);
       } else {
-        // Cart doesn't exist, create one
+        // If the cart doesn't exist, create one
         const createCartSql = "INSERT INTO carts (user_id) VALUES (?)";
         db.query(createCartSql, [user_id], (err, result) => {
           if (err) {
@@ -128,6 +128,37 @@ app.get("/cart/:user_id", (req, res) => {
 });
 
 
+// Route to clear user's cart
+app.delete("/cart/:user_id", (req, res) => {
+  const { user_id } = req.params;
+
+  // Find the cart_id
+  const findCartSql = "SELECT id FROM carts WHERE user_id = ?";
+  db.query(findCartSql, [user_id], (err, results) => {
+      if (err) {
+          console.error("Error finding cart:", err);
+          return res.status(500).send(err);
+      }
+
+      if (results.length === 0) {
+          // No cart found for user
+          return res.status(404).json({ message: "Cart not found for user." });
+      }
+
+      const cart_id = results[0].id;
+
+      // Delete all items from cart_items for that cart_id
+      const deleteItemsSql = "DELETE FROM cart_items WHERE cart_id = ?";
+      db.query(deleteItemsSql, [cart_id], (err, result) => {
+          if (err) {
+              console.error("Error clearing cart:", err);
+              return res.status(500).send(err);
+          }
+
+          res.json({ message: "Cart cleared successfully." });
+      });
+  });
+});
 
 // Start the server
 app.listen(3000, () => {

@@ -30,11 +30,11 @@ window.onload = function () {
 };
 
 function displayCartItems(items) {
-  const container = document.querySelector(".cart-container");
-  container.innerHTML = '<h2 class="cart-title">My Cart</h2>'; // Keep your title
+  const itemsContainer = document.querySelector(".cart-items"); // ONLY selecting .cart-items
+  itemsContainer.innerHTML = ""; // Clear old items if there are any
 
   if (items.length === 0) {
-    container.innerHTML += "<p>Your cart is empty.</p>";
+    itemsContainer.innerHTML = "<p>Your cart is empty.</p>";
     return;
   }
 
@@ -42,21 +42,32 @@ function displayCartItems(items) {
     const itemDiv = document.createElement("div");
     itemDiv.className = "cart-item";
     itemDiv.innerHTML = `
-  <h3>${item.name}</h3>
-  <p><strong>Type:</strong> ${item.type}</p>
-  <p><strong>Description:</strong> ${item.description}</p>
-  <p><strong>Price:</strong> $${item.price}</p>
-`;
-
-
-
-    container.appendChild(itemDiv);
+      <h3>${item.name}</h3>
+      <p><strong>Type:</strong> ${item.type}</p>
+      <p><strong>Description:</strong> ${item.description}</p>
+      <p><strong>Price:</strong> $${item.price}</p>
+    `;
+    itemsContainer.appendChild(itemDiv);
   });
-
-  const checkoutBtn = document.createElement("button");
-  checkoutBtn.className = "checkout-btn";
-  checkoutBtn.textContent = "Proceed to Checkout";
-  container.appendChild(checkoutBtn);
 }
+
+function clearCart() {
+  fetch(`http://localhost:3000/cart/${userId}`, {
+    method: 'DELETE',
+  })
+    .then((res) => {
+      if (!res.ok) throw new Error('Failed to clear cart');
+      return res.json();
+    })
+    .then((data) => {
+      console.log(data.message);
+      displayCartItems([]); // Refresh page: show empty cart immediately
+    })
+    .catch((err) => {
+      console.error(err);
+      alert("Failed to clear cart. Try again.");
+    });
+}
+
 
 
