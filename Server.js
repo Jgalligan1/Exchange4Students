@@ -66,6 +66,37 @@ app.put("/items/:id", (req, res) => {
     });
 });
 
+app.delete("/items/:item_id", (req, res) => {
+  const { item_id } = req.params;
+
+  // First delete all order_items referencing this item
+  const deleteOrderItemsSql = "DELETE FROM order_items WHERE item_id = ?";
+  db.query(deleteOrderItemsSql, [item_id], (err, result) => {
+      if (err) {
+          console.error("Error deleting from order_items:", err);
+          return res.status(500).send(err);
+      }
+
+      // Now delete the item itself
+      const deleteItemSql = "DELETE FROM items WHERE id = ?";
+      db.query(deleteItemSql, [item_id], (err, result) => {
+          if (err) {
+              console.error("Error deleting item:", err);
+              return res.status(500).send(err);
+          }
+
+          if (result.affectedRows === 0) {
+              return res.status(404).json({ message: "Item not found." });
+          }
+
+          res.json({ message: "Item and its references deleted successfully." });
+      });
+  });
+});
+
+
+
+
 app.post("/cart", (req, res) => {
     const { user_id, item_id } = req.body;
   

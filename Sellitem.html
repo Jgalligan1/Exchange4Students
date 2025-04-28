@@ -25,6 +25,13 @@ function openModal(item = null) {
     } else {
         delete document.getElementById("itemForm").dataset.itemId;
     }
+    const deleteButton = document.querySelector(".delete-button");
+    if (item) {
+    deleteButton.style.display = "inline-block"; // Show delete button
+    } else {
+    deleteButton.style.display = "none"; // Hide delete button
+    }
+
 
     // Set item type and show the right fields
     document.getElementById("type").value = item?.type || "Books";
@@ -109,6 +116,8 @@ function openModal(item = null) {
                 <div class="form-group"><label for="price">Price:</label><input type="number" id="price" step="0.01" required></div>
     
                 <button type="submit" class="submit-button">Submit</button>
+                <button type="button" class="delete-button" style="display: none;">Delete</button>
+
             </form>
         </div>
     </div>
@@ -182,6 +191,6 @@ function openModal(item = null) {
         updateFormFields();
         loadItems();
     </script>
-    <script src="Sellitem.js"></script>
+    <script src="SellItem.js"></script>
 </body>
 </html>

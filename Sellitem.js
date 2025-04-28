@@ -10,3 +10,24 @@ window.addEventListener("click", function (e) {
     menu.style.display = "none";
   }
 });
+
+document.querySelector(".delete-button").addEventListener("click", function() {
+  const itemId = document.getElementById("itemForm").dataset.itemId;
+  if (!itemId) return;
+
+  if (confirm("Are you sure you want to delete this item?")) {
+      fetch(`http://localhost:3000/items/${itemId}`, {
+          method: "DELETE",
+      })
+      .then(response => {
+          if (!response.ok) throw new Error('Failed to delete item');
+          return response.json();
+      })
+      .then(() => {
+          closeModal();
+          loadItems();
+      })
+      .catch(error => console.error("Error:", error));
+  }
+});
+

@@ -45,7 +45,8 @@ CREATE TABLE users (
 CREATE TABLE carts (
     id INT AUTO_INCREMENT PRIMARY KEY,
     user_id INT NOT NULL,
-    created_at TIMESTAMP DEFAULT CURRENT_TIMESTAMP
+    created_at TIMESTAMP DEFAULT CURRENT_TIMESTAMP,
+    FOREIGN KEY (user_id) REFERENCES users(id) ON DELETE CASCADE
 );
 
 -- Create the Cart Items Table
@@ -53,8 +54,8 @@ CREATE TABLE cart_items (
     id INT AUTO_INCREMENT PRIMARY KEY,
     cart_id INT NOT NULL,
     item_id INT NOT NULL,
-    FOREIGN KEY (cart_id) REFERENCES carts(id),
-    FOREIGN KEY (item_id) REFERENCES items(id)
+    FOREIGN KEY (cart_id) REFERENCES carts(id) ON DELETE CASCADE,
+    FOREIGN KEY (item_id) REFERENCES items(id) ON DELETE CASCADE
 );
 
 -- Create the Orders Table
@@ -62,7 +63,8 @@ CREATE TABLE orders (
     id INT AUTO_INCREMENT PRIMARY KEY,
     user_id INT NOT NULL,
     total_amount DECIMAL(10,2) NOT NULL,
-    created_at TIMESTAMP DEFAULT CURRENT_TIMESTAMP
+    created_at TIMESTAMP DEFAULT CURRENT_TIMESTAMP,
+    FOREIGN KEY (user_id) REFERENCES users(id) ON DELETE CASCADE
 );
 
 -- Create the Order Items Table
@@ -70,16 +72,6 @@ CREATE TABLE order_items (
     id INT AUTO_INCREMENT PRIMARY KEY,
     order_id INT NOT NULL,
     item_id INT NOT NULL,
-    FOREIGN KEY (order_id) REFERENCES orders(id),
-    FOREIGN KEY (item_id) REFERENCES items(id)
+    FOREIGN KEY (order_id) REFERENCES orders(id) ON DELETE CASCADE,
+    FOREIGN KEY (item_id) REFERENCES items(id) ON DELETE CASCADE
 );
-
--- Do you have a cart for user 1?
-SELECT * FROM carts WHERE user_id = 1;
-
--- If yes, get the cart_id and check items:
-SELECT items.*
-FROM cart_items
-JOIN carts ON cart_items.cart_id = carts.id
-JOIN items ON cart_items.item_id = items.id
-WHERE carts.user_id = 1;
