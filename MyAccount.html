@@ -1,0 +1,44 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8">
+  <meta http-equiv="X-UA-Compatible" content="IE=edge">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>Document</title>
+  <link rel="stylesheet" href="MyAccount.css" />
+</head>
+<body>
+  <div class="topnav">
+    <div class="profile-container">
+      <img src="./pictures/profile-icon.png" alt="Profile" class="profile-image" onclick="toggleDropdown()">
+      <div class="dropdown-menu" id="dropdownMenu">
+        <p onclick="location.href='MyAccount.html'">My Account</p>
+        <p onclick="location.href='Notifications.html'">Notifications</p>
+        <p>Sign Out</p>
+      </div>
+    </div>
+    <a class="active" href="#" onclick="location.href='MainDashboard.html'">Home</a>
+    <a href="#" onclick="location.href='SearchBrowser.html'">Search</a>
+    <a href="#" onclick="location.href='SellItem.html'">Sell</a>
+    <a href="#" onclick="location.href='Cart.html'">Cart</a>
+  </div>
+  <h1>My Account</h1>
+
+  <section id="profile-info">
+    <h2>Profile Information</h2>
+    <p><strong>Name:</strong> My Name</p>
+    <p><strong>Email:</strong> MyName@stevens.edu</p>
+  </section>
+
+  <section id="order-history">
+    <h2>Order History</h2>
+    <ul>
+      <li>Stevens Hoodie - Checked out on April 28, 2025 - Deal Made</li>
+      <li>Stevens Mug - Checked out on March 28, 2025 - </li>
+    </ul>
+  </section>
+
+  <button id="logout-btn">Sign Out</button>
+  <script src="MyAccount.js"></script>
+</body>
+</html>
