@@ -41,6 +41,10 @@ CREATE TABLE users (
     created_at TIMESTAMP DEFAULT CURRENT_TIMESTAMP
 );
 
+-- Insert a test user
+INSERT INTO users (username, password, email) 
+VALUES ('testuser', 'password123', 'test@example.com');
+
 -- Create the Carts Table
 CREATE TABLE carts (
     id INT AUTO_INCREMENT PRIMARY KEY,
