@@ -143,6 +143,20 @@ body {
   background-color: #90231b;
 }
 
+.clear-cart-btn {
+  width: 50%;
+  background-color: gray;
+  color: white;
+  padding: 12px;
+  font-size: 16px;
+  border: none;
+  border-radius: 8px;
+  margin-top: 10px;
+  cursor: pointer;
+  display: block;
+  margin: 10px auto 0 auto;
+}
+
 .cart-item {
   border: 1px solid #ccc;
   border-radius: 8px;

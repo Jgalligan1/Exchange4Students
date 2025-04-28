@@ -29,15 +29,28 @@
         .catch(error => console.error("Error loading notifications:", error));
     }
   </script>
+  <link rel="stylesheet" href="Notifications.css"/>
 </head>
 <body>
   <div class="topnav">
-    <a href="MainDashboard.html">Home</a>
-    <a href="SellItem.html">Sell Items</a>
-    <a class="active" href="Notifications.html">Notifications</a>
+    <div class="profile-container">
+      <img src="./pictures/profile-icon.png" alt="Profile" class="profile-image" onclick="toggleDropdown()">
+      <div class="dropdown-menu" id="dropdownMenu">
+        <p>My Account</p>
+        <p onclick="location.href='Notifications.html'">Notifications</p>
+        <p>Sign Out</p>
+      </div>
+    </div>
+    <a class="active" href="#" onclick="location.href='MainDashboard.html'">Home</a>
+    <a href="#" onclick="location.href='SearchBrowser.html'">Search</a>
+    <a href="#" onclick="location.href='SellItem.html'">Sell</a>
+    <a href="#" onclick="location.href='Cart.html'">Cart</a>
   </div>
+
+  <h1 id="notifications-title">Notifications</h1>
 
   <h2>Interested Buyers</h2>
   <ul id="notificationList"></ul>
+  <script src="Notifications.js"></script>
 </body>
 </html>
