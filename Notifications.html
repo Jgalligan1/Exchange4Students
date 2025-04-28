@@ -1,0 +1,43 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>Notifications</title>
+  <link rel="stylesheet" href="Notifications.css"/>
+  <script>
+    document.addEventListener('DOMContentLoaded', function() {
+      loadNotifications();
+    });
+
+    function loadNotifications() {
+      fetch("http://localhost:3000/notifications")
+        .then(response => response.json())
+        .then(notifications => {
+          const notificationList = document.getElementById("notificationList");
+          notificationList.innerHTML = "";
+
+          notifications.forEach(notification => {
+            const li = document.createElement("li");
+            li.innerHTML = `
+              <strong>Item:</strong> ${notification.item_name}<br>
+              <strong>Interested Buyer Email:</strong> ${notification.buyer_email}
+            `;
+            notificationList.appendChild(li);
+          });
+        })
+        .catch(error => console.error("Error loading notifications:", error));
+    }
+  </script>
+</head>
+<body>
+  <div class="topnav">
+    <a href="MainDashboard.html">Home</a>
+    <a href="SellItem.html">Sell Items</a>
+    <a class="active" href="Notifications.html">Notifications</a>
+  </div>
+
+  <h2>Interested Buyers</h2>
+  <ul id="notificationList"></ul>
+</body>
+</html>

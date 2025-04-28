@@ -69,5 +69,52 @@ function clearCart() {
     });
 }
 
+function checkout() {
+  fetch(`http://localhost:3000/checkout/${userId}`, {
+    method: 'POST',
+  })
+    .then((res) => {
+      if (!res.ok) throw new Error('Checkout failed');
+      return res.json();
+    })
+    .then((data) => {
+      console.log(data.message);
+      alert("Checkout successful! A confirmation email has been sent.");
+      displayCartItems([]); // Clear cart visually
+    })
+    .catch((err) => {
+      console.error(err);
+      alert("Checkout failed. Try again.");
+    });
+}
 
+//BELOW IS CHECKOUT FUNCTIONALITY
 
+// Hook up checkout button
+document.querySelector(".checkout-btn").addEventListener("click", proceedToCheckout);
+
+function proceedToCheckout() {
+    if (confirm("Are you sure you want to proceed to checkout?")) {
+        fetch("http://localhost:3000/checkout", {
+            method: "POST",
+            headers: { "Content-Type": "application/json" },
+            body: JSON.stringify({
+                user_id: 1 // Replace this later with real session user id!
+            })
+        })
+        .then(response => {
+            if (!response.ok) {
+                throw new Error("Checkout failed");
+            }
+            return response.json();
+        })
+        .then(data => {
+            alert("Checkout successful!");
+            location.reload(); // Reload page to clear cart visually
+        })
+        .catch(error => {
+            console.error("Error:", error);
+            alert("Checkout failed, please try again.");
+        });
+    }
+}
