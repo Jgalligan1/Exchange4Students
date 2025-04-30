@@ -69,25 +69,6 @@ function clearCart() {
     });
 }
 
-function checkout() {
-  fetch(`http://localhost:3000/checkout/${userId}`, {
-    method: 'POST',
-  })
-    .then((res) => {
-      if (!res.ok) throw new Error('Checkout failed');
-      return res.json();
-    })
-    .then((data) => {
-      console.log(data.message);
-      alert("Checkout successful! A confirmation email has been sent.");
-      displayCartItems([]); // Clear cart visually
-    })
-    .catch((err) => {
-      console.error(err);
-      alert("Checkout failed. Try again.");
-    });
-}
-
 //BELOW IS CHECKOUT FUNCTIONALITY
 
 // Hook up checkout button
