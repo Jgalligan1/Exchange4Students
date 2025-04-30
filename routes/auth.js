@@ -7,60 +7,59 @@ const db = require('../db');
 // Register route
 router.post('/register', async (req, res) => {
     const { email, password } = req.body;
-  
+
     if (!email.endsWith('@stevens.edu')) {
-      return res.redirect('/CreateAccount.html?error=invalid');
+        return res.redirect('/CreateAccount.html?error=invalid');
     }
-  
+
     const hashedPassword = await bcrypt.hash(password, 10);
-  
+
     try {
-      await db.promise().query(
-        'INSERT INTO users (email, password, verified) VALUES (?, ?, ?)',
-        [email, hashedPassword, true]
-      );
-      // ✅ Automatically redirect to dashboard after successful registration
-      res.redirect('/MainDashboard.html');
+        await db.promise().query(
+            'INSERT INTO users (email, password, verified) VALUES (?, ?, ?)',
+            [email, hashedPassword, true]
+        );
+
+        // ✅ Redirect to login with success message
+        res.redirect('/LoginScreen.html?success=created');
     } catch (err) {
-      if (err.code === 'ER_DUP_ENTRY') {
-        return res.redirect('/CreateAccount.html?error=duplicate');
-      }
-      console.error('REGISTER ERROR:', err);
-      res.status(500).send('Error creating account.');
+        if (err.code === 'ER_DUP_ENTRY') {
+            return res.redirect('/CreateAccount.html?error=duplicate');
+        }
+        console.error('REGISTER ERROR:', err);
+        res.status(500).send('Error creating account.');
     }
-  });
-  
+});
 
 // Login route
 router.post('/login', async (req, res) => {
     const { email, password } = req.body;
-  
+
     try {
-      const [users] = await db.promise().query(
-        'SELECT * FROM users WHERE email = ?',
-        [email]
-      );
-  
-      if (users.length === 0) {
-        return res.redirect('/LoginScreen.html?error=nouser');
-      }
-  
-      const user = users[0];
-      const match = await bcrypt.compare(password, user.password);
-      if (!match) {
-        return res.redirect('/LoginScreen.html?error=wrongpassword');
-      }
-  
-      if (!user.verified) {
-        return res.redirect('/LoginScreen.html?error=unverified');
-      }
-  
-      // ✅ Successful login → redirect to dashboard
-      res.redirect('/MainDashboard.html');
+        const [users] = await db.promise().query(
+            'SELECT * FROM users WHERE email = ?',
+            [email]
+        );
+
+        if (users.length === 0) {
+            return res.redirect('/LoginScreen.html?error=nouser');
+        }
+
+        const user = users[0];
+        const match = await bcrypt.compare(password, user.password);
+        if (!match) {
+            return res.redirect('/LoginScreen.html?error=wrongpassword');
+        }
+
+        if (!user.verified) {
+            return res.redirect('/LoginScreen.html?error=unverified');
+        }
+
+        res.redirect('/MainDashboard.html');
     } catch (err) {
-      console.error('LOGIN ERROR:', err);
-      res.status(500).send('Login error');
+        console.error('LOGIN ERROR:', err);
+        res.status(500).send('Login error');
     }
-  });
+});
 
 module.exports = router;
