@@ -6,7 +6,7 @@ const db = require('../db');
 
 // Register route
 router.post('/register', async (req, res) => {
-    const { email, password } = req.body;
+    const { email, password, name } = req.body;
 
     if (!email.endsWith('@stevens.edu')) {
         return res.redirect('/CreateAccount.html?error=invalid');
@@ -16,8 +16,8 @@ router.post('/register', async (req, res) => {
 
     try {
         await db.promise().query(
-            'INSERT INTO users (email, password, verified) VALUES (?, ?, ?)',
-            [email, hashedPassword, true]
+            'INSERT INTO users (email, password, name, verified) VALUES (?, ?, ?, ?)',
+            [ email, hashedPassword, name, true ]
         );
 
         // ✅ Redirect to login with success message
@@ -31,7 +31,6 @@ router.post('/register', async (req, res) => {
     }
 });
 
-// Login route
 // Login route
 router.post('/login', async (req, res) => {
     const { email, password } = req.body;

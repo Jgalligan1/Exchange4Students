@@ -40,6 +40,8 @@ CREATE TABLE users (
   verified BOOLEAN DEFAULT FALSE
 );
 
+ALTER TABLE users ADD COLUMN name VARCHAR(100);
+
 -- Create the Carts Table
 CREATE TABLE carts (
     id INT AUTO_INCREMENT PRIMARY KEY,

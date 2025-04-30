@@ -123,6 +123,36 @@ app.get("/get-user-id/:email", (req, res) => {
   });
 });
 
+// Puts users name
+app.put("/update-name", (req, res) => {
+  const { email, name } = req.body;
+  const sql = "UPDATE users SET name = ? WHERE email = ?";
+  db.query(sql, [name, email], (err, result) => {
+    if (err) return res.status(500).json({ error: "Database error" });
+    res.json({ message: "Name updated successfully" });
+  });
+});
+
+// Get user's name by email
+app.get("/get-name/:email", (req, res) => {
+  const email = req.params.email;
+  db.query("SELECT name FROM users WHERE email = ?", [email], (err, results) => {
+    if (err) return res.status(500).json({ error: "DB error" });
+    if (!results.length) return res.status(404).json({ error: "User not found" });
+    res.json({ name: results[0].name });
+  });
+});
+
+// Get user's name by email
+app.get("/get-name/:email", (req, res) => {
+  const email = req.params.email;
+  db.query("SELECT name FROM users WHERE email = ?", [email], (err, results) => {
+    if (err) return res.status(500).json({ error: "DB error" });
+    if (!results.length) return res.status(404).json({ error: "User not found" });
+    res.json({ name: results[0].name });
+  });
+});
+
 // Cart logic
 app.post("/cart", (req, res) => {
   const { user_id, item_id } = req.body;
