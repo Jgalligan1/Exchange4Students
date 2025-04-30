@@ -34,23 +34,33 @@ router.post('/register', async (req, res) => {
 // Login route
 router.post('/login', async (req, res) => {
     const { email, password } = req.body;
-    const [users] = await db.promise().query('SELECT * FROM users WHERE email = ?', [email]);
   
-    if (users.length === 0) return res.redirect('/LoginScreen.html?error=nouser');
+    try {
+      const [users] = await db.promise().query(
+        'SELECT * FROM users WHERE email = ?',
+        [email]
+      );
   
-    const user = users[0];
-    const match = await bcrypt.compare(password, user.password);
-    if (!match) return res.redirect('/LoginScreen.html?error=wrongpassword');
+      if (users.length === 0) {
+        return res.redirect('/LoginScreen.html?error=nouser');
+      }
   
-    if (!user.verified) return res.redirect('/LoginScreen.html?error=unverified');
+      const user = users[0];
+      const match = await bcrypt.compare(password, user.password);
+      if (!match) {
+        return res.redirect('/LoginScreen.html?error=wrongpassword');
+      }
   
-    // Success
-    res.redirect('/MainDashboard.html');
+      if (!user.verified) {
+        return res.redirect('/LoginScreen.html?error=unverified');
+      }
+  
+      // ✅ Successful login → redirect to dashboard
+      res.redirect('/MainDashboard.html');
+    } catch (err) {
+      console.error('LOGIN ERROR:', err);
+      res.status(500).send('Login error');
+    }
   });
-  
-router.post('/register', async (req, res) => {
-  console.log('🔥 /auth/register was triggered');
-  res.send('It worked!'); // Temporarily replace the logic
-});
 
 module.exports = router;

@@ -12,6 +12,7 @@ app.use(express.json());
 app.use(bodyParser.urlencoded({ extended: true }));
 app.use(bodyParser.json());
 app.use(express.static(path.join(__dirname))); // Serves HTML/CSS/JS from root
+app.use('/auth', require('./routes/auth'));
 
 // Connect to MySQL
 const db = mysql.createConnection({
