@@ -1,0 +1,37 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8">
+  <title>Create Account - Exchange4Students</title>
+</head>
+<body>
+  <h1>Create Account</h1>
+  <form action="/auth/register" method="POST" id="signupForm">
+    <input type="email" id="email" name="email" placeholder="Stevens Email" required><br><br>
+    <input type="password" name="password" placeholder="Password" required><br><br>
+    <button type="submit">Register</button>
+  </form>
+
+  <p>Already have an account? <a href="LoginScreen.html">Login here</a></p>
+
+  <script>
+    // Basic frontend check for @stevens.edu
+    document.getElementById('signupForm').addEventListener('submit', function(event) {
+      const email = document.getElementById('email').value;
+      if (!email.endsWith('@stevens.edu')) {
+        alert('Email must be a Stevens.edu address.');
+        event.preventDefault();
+      }
+    });
+
+    // Show error messages from server (like duplicate or invalid)
+    const params = new URLSearchParams(window.location.search);
+    if (params.get('error') === 'duplicate') {
+      alert('That email is already registered. Please log in.');
+    }
+    if (params.get('error') === 'invalid') {
+      alert('Only @stevens.edu emails are allowed.');
+    }
+  </script>
+</body>
+</html>
