@@ -13,7 +13,7 @@
       <div class="dropdown-menu" id="dropdownMenu">
         <p onclick="location.href='MyAccount.html'">My Account</p>
         <p onclick="location.href='Notifications.html'">Notifications</p>
-        <p>Sign Out</p>
+        <p onclick="signOut()">Sign Out</p>
       </div>
     </div>
     <a class="active" href="#" onclick="location.href='MainDashboard.html'">Home</a>
@@ -40,6 +40,27 @@
     <span id="pageInfo">Page 1</span>
     <button onclick="nextPage()" id="nextBtn">Next</button>
   </div>
+
+  <script>
+    function signOut() {
+      localStorage.clear();
+      window.location.href = "LoginScreen.html";
+    }
+  
+    function toggleDropdown() {
+      const menu = document.getElementById("dropdownMenu");
+      menu.style.display = menu.style.display === "block" ? "none" : "block";
+    }
+  
+    // Optional: close dropdown when clicking outside
+    window.addEventListener("click", function (e) {
+      const menu = document.getElementById("dropdownMenu");
+      const profileImage = document.querySelector(".profile-image");
+      if (!profileImage.contains(e.target) && !menu.contains(e.target)) {
+        menu.style.display = "none";
+      }
+    });
+  </script>  
 
   <script src="SearchBrowser.js"></script>
 </body>

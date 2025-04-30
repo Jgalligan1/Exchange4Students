@@ -59,16 +59,13 @@ h1 {
 .dropdown-menu {
   display: none;
   position: absolute;
-  top: 60px;
   right: 0;
   background-color: white;
-  border: 1px solid #ccc;
-  border-radius: 8px;
-  box-shadow: 0 4px 8px rgba(0, 0, 0, 0.1);
-  padding: 10px 0;
-  min-width: 140px;
+  box-shadow: 0 2px 5px rgba(0,0,0,0.2);
+  border-radius: 5px;
   z-index: 100;
 }
+
 
 .dropdown-menu p {
   margin: 0;
