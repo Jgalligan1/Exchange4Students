@@ -127,7 +127,7 @@ function addToCart(itemId) {
       "Content-Type": "application/json",
     },
     body: JSON.stringify({
-      user_id: 1, // replace with dynamic user ID if you have one
+      user_id: 1, // Using user_id = 1 for testing before its synced properly to login
       item_id: itemId,
     }),
   })
