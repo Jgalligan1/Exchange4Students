@@ -96,6 +96,23 @@ app.delete("/items/:item_id", (req, res) => {
   });
 });
 
+// Get all items posted by the logged-in user
+app.get("/user-items/:email", (req, res) => {
+  const email = req.params.email;
+
+  const sql = `
+    SELECT items.*
+    FROM items
+    JOIN users ON items.user_id = users.id
+    WHERE users.email = ?
+  `;
+
+  db.query(sql, [email], (err, results) => {
+    if (err) return res.status(500).json({ error: "Database error" });
+    res.json(results);
+  });
+});
+
 // Cart logic
 app.post("/cart", (req, res) => {
   const { user_id, item_id } = req.body;

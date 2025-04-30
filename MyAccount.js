@@ -10,3 +10,30 @@ window.addEventListener("click", function (e) {
     menu.style.display = "none";
   }
 });
+
+document.addEventListener("DOMContentLoaded", () => {
+  const email = localStorage.getItem("userEmail");
+  if (!email) return;
+
+  fetch(`/user-items/${email}`)
+    .then(res => res.json())
+    .then(items => {
+      const list = document.getElementById("listingContainer");
+      list.innerHTML = ""; // clear loading message
+
+      if (!items.length) {
+        list.innerHTML = "<li>No items listed yet.</li>";
+        return;
+      }
+
+      items.forEach(item => {
+        const li = document.createElement("li");
+        li.textContent = `${item.name} - $${item.price} (${item.type})`;
+        list.appendChild(li);
+      });
+    })
+    .catch(err => {
+      console.error("Failed to fetch user items", err);
+      document.getElementById("listingContainer").innerHTML = "<li>Error loading items.</li>";
+    });
+});
