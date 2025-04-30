@@ -25,5 +25,15 @@
   </div>
   
   <script src="MainDashboard.js"></script>
+  <script>
+    const urlParams = new URLSearchParams(window.location.search);
+    const email = urlParams.get("email");
+    const id = urlParams.get("id");
+  
+    if (email && id) {
+      localStorage.setItem("userEmail", email);
+      localStorage.setItem("userId", id);
+    }
+  </script>  
 </body>
 </html>

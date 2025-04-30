@@ -13,13 +13,19 @@ window.addEventListener("click", function (e) {
 
 document.addEventListener("DOMContentLoaded", () => {
   const email = localStorage.getItem("userEmail");
-  if (!email) return;
+  if (email) {
+    const emailSpan = document.getElementById("user-email");
+    if (emailSpan) {
+      emailSpan.textContent = email;
+    }
+  }
 
+  // Load the user's items
   fetch(`/user-items/${email}`)
     .then(res => res.json())
     .then(items => {
       const list = document.getElementById("listingContainer");
-      list.innerHTML = ""; // clear loading message
+      list.innerHTML = ""; // Clear loading...
 
       if (!items.length) {
         list.innerHTML = "<li>No items listed yet.</li>";
@@ -34,6 +40,7 @@ document.addEventListener("DOMContentLoaded", () => {
     })
     .catch(err => {
       console.error("Failed to fetch user items", err);
-      document.getElementById("listingContainer").innerHTML = "<li>Error loading items.</li>";
+      document.getElementById("listingContainer").innerHTML =
+        "<li>Error loading items.</li>";
     });
 });

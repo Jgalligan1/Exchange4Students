@@ -113,6 +113,16 @@ app.get("/user-items/:email", (req, res) => {
   });
 });
 
+// Get user ID by email
+app.get("/get-user-id/:email", (req, res) => {
+  const email = req.params.email;
+  db.query("SELECT id FROM users WHERE email = ?", [email], (err, results) => {
+    if (err) return res.status(500).json({ error: "DB error" });
+    if (!results.length) return res.status(404).json({ error: "User not found" });
+    res.json({ id: results[0].id });
+  });
+});
+
 // Cart logic
 app.post("/cart", (req, res) => {
   const { user_id, item_id } = req.body;

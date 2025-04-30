@@ -144,7 +144,7 @@ function openModal(item = null) {
         model: document.getElementById("model").value || null,
         dimension: document.getElementById("dimension").value || null,
         weight: document.getElementById("weight").value || null,
-        user_id: 1 // We'll need to change this when we make the login system and actual ID stuff.  Right now we only have user_id = 1
+        user_id: parseInt(localStorage.getItem("userId")) || 1
     };
 
     const url = itemId 

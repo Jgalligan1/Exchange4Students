@@ -61,6 +61,14 @@
     const error = params.get('error');
     const success = params.get('success');
     const msgBox = document.getElementById('errorMsg');
+    const urlParams = new URLSearchParams(window.location.search);
+    const userEmail = urlParams.get("email");
+    const userId = urlParams.get("id");
+
+    if (userEmail && userId) {
+      localStorage.setItem("userEmail", userEmail);
+      localStorage.setItem("userId", userId);
+    }
 
     if (error === 'wrongpassword') {
       msgBox.style.color = 'red';

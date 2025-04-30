@@ -32,6 +32,7 @@ router.post('/register', async (req, res) => {
 });
 
 // Login route
+// Login route
 router.post('/login', async (req, res) => {
     const { email, password } = req.body;
 
@@ -55,11 +56,13 @@ router.post('/login', async (req, res) => {
             return res.redirect('/LoginScreen.html?error=unverified');
         }
 
-        res.redirect('/MainDashboard.html');
+        // ✅ Send email & ID to front-end (for localStorage)
+        res.redirect(`/MainDashboard.html?email=${email}&id=${user.id}`);
     } catch (err) {
         console.error('LOGIN ERROR:', err);
         res.status(500).send('Login error');
     }
 });
+
 
 module.exports = router;
