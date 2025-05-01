@@ -32,6 +32,8 @@ CREATE TABLE items (
     created_at TIMESTAMP DEFAULT CURRENT_TIMESTAMP
 );
 
+ALTER TABLE items ADD COLUMN image_url VARCHAR(255);
+
 -- Create the Users Table
 CREATE TABLE users (
   id INT AUTO_INCREMENT PRIMARY KEY,

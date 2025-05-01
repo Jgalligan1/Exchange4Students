@@ -22,45 +22,52 @@ fetch("http://localhost:3000/items")
   });
 
 
-function displayItems() {
-  const container = document.getElementById("itemsContainer");
-  container.innerHTML = "";
-
-  if (filteredItems.length === 0) {
-    container.innerHTML = "<p>No items found.</p>";
-    updatePagination();
-    return;
-  }
-
-  const start = currentPage * itemsPerPage;
-  const end = start + itemsPerPage;
-  const paginatedItems = filteredItems.slice(start, end);
-
-  paginatedItems.forEach((item) => {
-    const itemDiv = document.createElement("div");
-    itemDiv.classList.add("item");
-
-    let details = "";
-
-    if (item.type) details += `<h3>Type: ${item.type}</h3>`;
-    if (item.name) details += `<h4>Name: ${item.name}</h4>`;
-    if (item.description) details += `<p>Description: ${item.description}</p>`;
-    if (item.course_number) details += `<p>Course: ${item.course_number}</p>`;
-    if (item.edition) details += `<p>Edition: ${item.edition}</p>`;
-    if (item.model) details += `<p>Model: ${item.model}</p>`;
-    if (item.color) details += `<p>Color: ${item.color}</p>`;
-    if (item.size) details += `<p>Size: ${item.size}</p>`;
-    if (item.dimension) details += `<p>Dimension: ${item.dimension}</p>`;
-    if (item.weight) details += `<p>Weight: ${item.weight} lbs</p>`;
-
-    details += `<p><strong>Price:</strong> $${item.price}</p>`;
+  function displayItems() {
+    const container = document.getElementById("itemsContainer");
+    container.innerHTML = "";
+  
+    if (filteredItems.length === 0) {
+      container.innerHTML = "<p>No items found.</p>";
+      updatePagination();
+      return;
+    }
+  
+    const start = currentPage * itemsPerPage;
+    const end = start + itemsPerPage;
+    const paginatedItems = filteredItems.slice(start, end);
+  
+    paginatedItems.forEach((item) => {
+      const itemDiv = document.createElement("div");
+      itemDiv.classList.add("item");
+  
+      let details = `
+      <p><strong>Type:</strong> ${item.type}</p>
+      <p><strong>Name:</strong> ${item.name}</p>
+      ${item.description ? `<p><strong>Description:</strong> ${item.description}</p>` : ''}
+      ${item.course_number ? `<p><strong>Course:</strong> ${item.course_number}</p>` : ''}
+      ${item.edition ? `<p><strong>Edition:</strong> ${item.edition}</p>` : ''}
+      ${item.model ? `<p><strong>Model:</strong> ${item.model}</p>` : ''}
+      ${item.color ? `<p><strong>Color:</strong> ${item.color}</p>` : ''}
+      ${item.size ? `<p><strong>Size:</strong> ${item.size}</p>` : ''}
+      ${item.dimension ? `<p><strong>Dimension:</strong> ${item.dimension}</p>` : ''}
+      ${item.weight ? `<p><strong>Weight:</strong> ${item.weight} lbs</p>` : ''}
+      <p><strong>Price:</strong> $${item.price}</p>
+      <p><em><strong>Sold by:</strong> ${item.seller_name || 'Unknown'}</em></p>
+    `;
+    
+    if (item.image_url) {
+      details += `<img src="${item.image_url}" style="max-width: 100px;"><br>`;
+    }
+    
     details += `<button onclick="addToCart(${item.id})">Add to Cart</button>`;
-    itemDiv.innerHTML = details;
-    container.appendChild(itemDiv);
-  });
-
-  updatePagination();
-}
+    
+      itemDiv.innerHTML = details;
+      container.appendChild(itemDiv);
+    });
+  
+    updatePagination();
+  }
+  
 
 function searchItems() {
   const query = document.getElementById("searchInput").value.toLowerCase();

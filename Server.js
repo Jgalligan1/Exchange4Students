@@ -3,6 +3,8 @@ const mysql = require("mysql2");
 const cors = require("cors");
 const path = require("path");
 const bodyParser = require("body-parser");
+const multer = require('multer');
+const fs = require('fs');
 const app = express();
 const PORT = 3000;
 
@@ -34,26 +36,56 @@ db.connect(err => {
 const authRoutes = require("./routes/auth");
 app.use("/auth", authRoutes);
 
+// ============ Uploading Pictures to Items ============
+
+const storage = multer.diskStorage({
+  destination: function (req, file, cb) {
+    cb(null, 'pictures/');
+  },
+  filename: function (req, file, cb) {
+    cb(null, Date.now() + '-' + file.originalname);
+  }
+});
+const upload = multer({ storage });
+app.use('/pictures', express.static('pictures'));
+
 // ============ Item Routes ============
 
 // Add item
-app.post("/add-item", (req, res) => {
-  const { type, name, price, description, color, size, user_id, weight, dimension, model, course_number, edition } = req.body;
-  const sql = "INSERT INTO items (type, name, price, description, color, size, user_id, weight, dimension, model, course_number, edition) VALUES (?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?)";
-  const values = [type, name, price, description, color, size, user_id, weight, dimension, model, course_number, edition];
+app.post("/add-item", upload.single("image"), (req, res) => {
+  const {
+    type, name, price, description, color,
+    size, user_id, weight, dimension, model, course_number, edition
+  } = req.body;
+
+  const image_url = req.file ? `/pictures/${req.file.filename}` : null;
+
+  const sql = `
+    INSERT INTO items (type, name, price, description, color, size, user_id,
+      weight, dimension, model, course_number, edition, image_url)
+    VALUES (?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?)
+  `;
+  const values = [type, name, price, description, color, size, user_id,
+    weight, dimension, model, course_number, edition, image_url];
+
   db.query(sql, values, (err, result) => {
-    if (err) {
-      console.error("Error inserting item:", err);
-      return res.status(500).send(err);
-    }
+    if (err) return res.status(500).send(err);
     res.json({ message: "Item added successfully", id: result.insertId });
+    console.log("BODY:", req.body);
+console.log("FILE:", req.file);
+
   });
 });
 
 // Fetch items
 app.get("/items", (req, res) => {
-  db.query("SELECT * FROM items", (err, results) => {
-    if (err) return res.status(500).json({ message: "Server error fetching items." });
+  const sql = `
+    SELECT items.*, users.name AS seller_name
+    FROM items
+    LEFT JOIN users ON items.user_id = users.id
+  `;
+  db.query(sql, (err, results) => {
+    if (err) return res.status(500).json({ message: "Error fetching items." });
     res.json(results);
   });
 });

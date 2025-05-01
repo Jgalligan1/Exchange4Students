@@ -114,7 +114,10 @@ function openModal(item = null) {
                 <div class="form-group"><label for="dimension">Dimension:</label><input type="text" id="dimension"></div>
                 <div class="form-group"><label for="weight">Weight (kg):</label><input type="number" id="weight" step="0.1"></div>
                 <div class="form-group"><label for="price">Price:</label><input type="number" id="price" step="0.01" required></div>
-    
+                <div class="form-group">
+                    <label for="image">Image:</label>
+                    <input type="file" id="image" name="image" accept="image/*">
+                  </div>    
                 <button type="submit" class="submit-button">Submit</button>
                 <button type="button" class="delete-button" style="display: none;">Delete</button>
 
@@ -167,26 +170,36 @@ function openModal(item = null) {
 });
 
 
-        function loadItems() {
-            fetch("http://localhost:3000/items")
-            .then(response => response.json())
-            .then(items => {
-                const itemList = document.getElementById("itemList");
-                itemList.innerHTML = "";
-                items.forEach(item => {
-                    const li = document.createElement("li");
-                    li.textContent = `${item.name} - $${item.price}`;
-                    itemList.appendChild(li);
-                    const edit = document.createElement("button");
-                    edit.textContent = "Edit";
-                    edit.onclick = () => openModal(item);
-
-                    li.appendChild(edit)
-                    itemList.appendChild(li);
-                });
-            })
-            .catch(error => console.error("Error:", error));
-        }
+function loadItems() {
+    fetch("http://localhost:3000/items")
+      .then((response) => response.json())
+      .then((items) => {
+        const itemList = document.getElementById("itemList");
+        itemList.innerHTML = "";
+        items.forEach((item) => {
+          const li = document.createElement("li");
+          li.innerHTML = `
+            <strong>${item.name}</strong> - $${item.price}<br>
+            <em>Sold by: ${item.seller_name || 'Unknown'}</em><br>
+            ${item.image_url ? `<img src="${item.image_url}" style="max-width:100px;"><br>` : ''}
+          `;
+  
+          const edit = document.createElement("button");
+          edit.textContent = "Edit";
+          edit.onclick = () => openModal(item);
+          li.appendChild(edit);
+  
+          const del = document.createElement("button");
+          del.textContent = "Delete";
+          del.className = "delete-button";
+          del.dataset.itemId = item.id;
+          li.appendChild(del);
+  
+          itemList.appendChild(li);
+        });
+      })
+      .catch((error) => console.error("Error:", error));
+  }  
 
         updateFormFields();
         loadItems();

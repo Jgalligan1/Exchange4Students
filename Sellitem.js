@@ -11,6 +11,33 @@ window.addEventListener("click", function (e) {
   }
 });
 
+document.getElementById("itemForm").addEventListener("submit", function (event) {
+  event.preventDefault();
+
+  const itemId = this.dataset.itemId;
+  const formData = new FormData(document.getElementById("itemForm"));
+  formData.append("user_id", parseInt(localStorage.getItem("userId")) || 1);  
+
+  const url = itemId
+    ? `http://localhost:3000/items/${itemId}`
+    : "http://localhost:3000/add-item";
+
+  const method = itemId ? "PUT" : "POST";
+
+  fetch(url, {
+    method,
+    body: formData,
+  })
+    .then((res) => res.json())
+    .then(() => {
+      alert(itemId ? "Item updated!" : "Item posted!");
+      closeModal();
+      loadItems();
+    })
+    .catch((err) => console.error("Error:", err));
+});
+
+
 document.querySelector(".delete-button").addEventListener("click", function() {
   const itemId = document.getElementById("itemForm").dataset.itemId;
   if (!itemId) return;
